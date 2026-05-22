@@ -349,49 +349,34 @@
       <div class="bform-title">Book Your Consultation</div>
       <div class="bform-sub">Fill in your details and we will reach out within 24 hours.</div>
       <form id="consultForm">
-        <div class="frow">
-          <div class="fgrp">
-            <label>Full Name *</label>
-            <input type="text" placeholder="Juan dela Cruz" required>
-          </div>
-          <div class="fgrp">
-            <label>Company Name</label>
-            <input type="text" placeholder="Your Business Name">
-          </div>
-        </div>
-        <div class="fgrp">
-          <label>Email Address *</label>
-          <input type="email" placeholder="you@company.com" required>
-        </div>
-        <div class="fgrp">
-          <label>Number of Employees</label>
-          <select>
-            <option value="">Select range</option>
-            <option>1 to 5 employees</option>
-            <option>6 to 20 employees</option>
-            <option>21 to 50 employees</option>
-            <option>51 to 100 employees</option>
-            <option>100+ employees</option>
-          </select>
-        </div>
-        <div class="fgrp">
-          <label>Service Needed</label>
-          <select>
-            <option value="">Select a service</option>
-            <option>HR Setup and Employee Documentation</option>
-            <option>Payroll Processing</option>
-            <option>SSS, PhilHealth and Pag-IBIG Assistance</option>
-            <option>Recruitment and Hiring Support</option>
-            <option>Monthly HR Retainer</option>
-            <option>Admin Outsourcing</option>
-            <option>International / Foreign Company HR Support</option>
-            <option>Multiple Services / Not Sure Yet</option>
-          </select>
-        </div>
-        <div class="fgrp">
-          <label>Tell Us About Your Needs</label>
-          <textarea placeholder="Briefly describe your current HR challenges or what you are looking for..."></textarea>
-        </div>
+        <input type="text" name="full_name" placeholder="Juan dela Cruz" required>
+        <input type="text" name="company_name" placeholder="Your Business Name">
+
+        <input type="email" name="email" placeholder="you@company.com" required>
+
+        <select name="employees">
+          <option value="">Select range</option>
+          <option>1 to 5 employees</option>
+          <option>6 to 20 employees</option>
+          <option>21 to 50 employees</option>
+          <option>51 to 100 employees</option>
+          <option>100+ employees</option>
+        </select>
+
+        <select name="service_needed">
+          <option value="">Select a service</option>
+          <option>HR Setup and Employee Documentation</option>
+          <option>Payroll Processing</option>
+          <option>SSS, PhilHealth and Pag-IBIG Assistance</option>
+          <option>Recruitment and Hiring Support</option>
+          <option>Monthly HR Retainer</option>
+          <option>Admin Outsourcing</option>
+          <option>International / Foreign Company HR Support</option>
+          <option>Multiple Services / Not Sure Yet</option>
+        </select>
+
+        <textarea name="message" placeholder="Briefly describe your current HR challenges or what you are looking for..."></textarea>
+
         <button type="submit" class="btn-submit" id="submitBtn">
           &#128197;&nbsp; Book Consultation
         </button>
@@ -505,23 +490,30 @@
   var submitBtn = document.getElementById('submitBtn');
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    var name = form.querySelector('input[type=text]').value;
-    var email = form.querySelector('input[type=email]').value;
-    var selects = form.querySelectorAll('select');
-    var employees = selects[0].value;
-    var service = selects[1].value;
-    var message = form.querySelector('textarea').value;
-    var body = 'Name: ' + name + '%0AEmail: ' + email + '%0AEmployees: ' + employees + '%0AService: ' + service + '%0AMessage: ' + message;
-    var subject = 'Consultation Request from ' + name;
-    window.location.href = 'mailto:admin@staffbridge-ph.com?subject=' + encodeURIComponent(subject) + '&body=' + body;
-    submitBtn.textContent = 'Sent! We will contact you shortly.';
-    submitBtn.style.background = 'linear-gradient(135deg,#16a34a,#15803d)';
+
     submitBtn.disabled = true;
-    setTimeout(function() {
+    submitBtn.textContent = 'Sending...';
+
+    fetch('send-consultation.php', {
+      method: 'POST',
+      body: new FormData(form)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        submitBtn.textContent = 'Sent! We will contact you shortly.';
+        form.reset();
+      } else {
+        alert(data.message || 'Unable to send. Please try again.');
+        submitBtn.innerHTML = '&#128197;&nbsp; Book Consultation';
+        submitBtn.disabled = false;
+      }
+    })
+    .catch(() => {
+      alert('Unable to send. Please try again.');
       submitBtn.innerHTML = '&#128197;&nbsp; Book Consultation';
-      submitBtn.style.background = '';
       submitBtn.disabled = false;
-    }, 4000);
+    });
   });
 })();
 </script>
