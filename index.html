@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?ver=437">
+<link rel="stylesheet" href="assets/css/style.css?ver=438">
 <link rel="icon" type="image/png" href="assets/images/logo.png?v=444">
 
 </head>
@@ -321,6 +321,8 @@
   </div>
 </section>
 
+<section id="booking2"></section>
+
 <!-- BOOKING -->
 <section id="booking">
   <div class="booking-wrap">
@@ -345,7 +347,7 @@
         </div>
       </div>
     </div>
-    <div class="bform reveal d2" id="booking2">
+    <div class="bform reveal d2" >
       <div class="bform-title">Book Your Consultation</div>
       <div class="bform-sub">Fill in your details and we will reach out within 24 hours.</div>
       <form id="consultForm" method="POST" action="send-consultation.php">
@@ -431,7 +433,7 @@
     <div class="foot-col">
       <h5>Contact Us</h5>
       <div class="contact-row"><span class="cic">&#128205;</span><span>Philippines<br>Serving clients nationwide &amp; globally</span></div>
-      <div class="contact-row"><span class="cic">&#128231;</span><span>admin@staffbridge-ph.com</span></div>
+      <div class="contact-row"><span class="cic">&#128231;</span><span>inquiry@staffbridgeph.com</span></div>
       <div class="contact-row"><span class="cic">&#128172;</span><span>+63 916 444 4450<br>Viber / WhatsApp</span></div>
       <div class="contact-row"><span class="cic">&#128336;</span><span>Mon to Fri, 8AM to 6PM PHT</span></div>
     </div>
@@ -458,6 +460,30 @@
 </div> -->
 
 <script>
+
+const hambBtn = document.getElementById('hambBtn');
+const mobNav = document.getElementById('mobNav');
+const mobClose = document.getElementById('mobClose');
+const mobLinks = document.querySelectorAll('.mob-lnk');
+
+if (hambBtn && mobNav) {
+  hambBtn.addEventListener('click', function () {
+    mobNav.classList.add('open');
+  });
+}
+
+if (mobClose && mobNav) {
+  mobClose.addEventListener('click', function () {
+    mobNav.classList.remove('open');
+  });
+}
+
+mobLinks.forEach(function (link) {
+  link.addEventListener('click', function () {
+    mobNav.classList.remove('open');
+  });
+});
+
 document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('.reveal').forEach(function (el) {

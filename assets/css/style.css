@@ -379,8 +379,3 @@ footer{background:var(--gray-800);padding:60px 6% 28px;}
   .intl-cards{grid-template-columns:1fr;}
   .intl-photo-row{grid-template-columns:1fr!important;}
 }
-
-.reveal{
-  opacity:0;
-  transform:translateY(26px);
-}
