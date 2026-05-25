@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?ver=435">
+<link rel="stylesheet" href="assets/css/style.css?ver=437">
 <link rel="icon" type="image/png" href="assets/images/logo.png?v=444">
 
 </head>
@@ -348,7 +348,7 @@
     <div class="bform reveal d2" id="booking2">
       <div class="bform-title">Book Your Consultation</div>
       <div class="bform-sub">Fill in your details and we will reach out within 24 hours.</div>
-      <form id="consultForm">
+      <form id="consultForm" method="POST" action="send-consultation.php">
         <input type="text" name="full_name" placeholder="Juan dela Cruz" required>
         <input type="text" name="company_name" placeholder="Your Business Name">
 
@@ -458,64 +458,59 @@
 </div> -->
 
 <script>
-(function() {
-  var hambBtn  = document.getElementById('hambBtn');
-  var mobNav   = document.getElementById('mobNav');
-  var mobClose = document.getElementById('mobClose');
+document.addEventListener('DOMContentLoaded', function () {
 
-  function openNav() { mobNav.classList.add('open'); document.body.style.overflow = 'hidden'; }
-  function closeNav() { mobNav.classList.remove('open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    el.classList.add('visible');
+  });
 
-  hambBtn.addEventListener('click', openNav);
-  mobClose.addEventListener('click', closeNav);
+  const form = document.getElementById('consultForm');
+  const submitBtn = document.getElementById('submitBtn');
 
-  var mobLinks = document.querySelectorAll('.mob-lnk');
-  for (var i = 0; i < mobLinks.length; i++) {
-    mobLinks[i].addEventListener('click', closeNav);
-  }
+  if (!form || !submitBtn) return;
 
-  var reveals = document.querySelectorAll('.reveal');
-  if (typeof IntersectionObserver !== 'undefined') {
-    var obs = new IntersectionObserver(function(entries) {
-      for (var j = 0; j < entries.length; j++) {
-        if (entries[j].isIntersecting) { entries[j].target.classList.add('visible'); }
-      }
-    }, { threshold: 0.1 });
-    for (var k = 0; k < reveals.length; k++) { obs.observe(reveals[k]); }
-  } else {
-    for (var m = 0; m < reveals.length; m++) { reveals[m].classList.add('visible'); }
-  }
-
-  var form = document.getElementById('consultForm');
-  var submitBtn = document.getElementById('submitBtn');
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
+    const formData = new FormData(form);
 
-    fetch('send-consultation.php', {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Sending...';
+
+    fetch(form.action, {
       method: 'POST',
-      body: new FormData(form)
+      body: formData
     })
-    .then(response => response.json())
-    .then(data => {
+    .then(function (response) {
+      return response.text();
+    })
+    .then(function (text) {
+      let data;
+
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        console.log(text);
+        alert('Server error. Check send-consultation.php response.');
+        return;
+      }
+
+      alert(data.message);
+
       if (data.success) {
-        submitBtn.textContent = 'Sent! We will contact you shortly.';
         form.reset();
-      } else {
-        alert(data.message || 'Unable to send. Please try again.');
-        submitBtn.innerHTML = '&#128197;&nbsp; Book Consultation';
-        submitBtn.disabled = false;
       }
     })
-    .catch(() => {
+    .catch(function (error) {
+      console.log(error);
       alert('Unable to send. Please try again.');
-      submitBtn.innerHTML = '&#128197;&nbsp; Book Consultation';
+    })
+    .finally(function () {
       submitBtn.disabled = false;
+      submitBtn.innerHTML = '&#128197;&nbsp; Book Consultation';
     });
   });
-})();
+});
 </script>
 </body>
 </html>

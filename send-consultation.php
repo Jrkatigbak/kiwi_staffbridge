@@ -30,7 +30,7 @@ try {
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
     $mail->Username = 'inquiry@staffbridgeph.com';
-    $mail->Password = 'YOUR_GOOGLE_APP_PASSWORD';
+    $mail->Password = 'zcpwhezttydpxfsk';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 

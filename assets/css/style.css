@@ -150,23 +150,154 @@ section{padding:90px 6%;}
 .author-role{font-size:11px;color:rgba(255,255,255,.4);}
 
 /* BOOKING */
-#booking{background:var(--gray-100);}
-.booking-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:72px;align-items:start;max-width:1100px;margin:0 auto;}
-.checklist{margin-top:32px;display:flex;flex-direction:column;gap:12px;}
-.chk{display:flex;align-items:center;gap:11px;}
-.chk-dot{width:26px;height:26px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--navy),var(--navy-mid));display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--white);}
-.chk span{font-size:14px;color:var(--gray-600);font-weight:500;}
-.bform{background:var(--white);border-radius:20px;padding:38px;box-shadow:var(--sh-md);border:1px solid var(--gray-200);}
-.bform-title{font-size:19px;font-weight:600;color:var(--navy);margin-bottom:5px;}
-.bform-sub{font-size:13px;color:var(--gray-400);margin-bottom:26px;}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.fgrp{margin-bottom:16px;}
-.fgrp label{display:block;font-size:11px;font-weight:600;color:var(--gray-600);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em;}
-.fgrp input,.fgrp select,.fgrp textarea{width:100%;padding:11px 15px;border-radius:10px;border:1.5px solid var(--gray-200);background:var(--gray-100);font-family:'Outfit',sans-serif;font-size:14px;color:var(--gray-800);transition:var(--ease);outline:none;}
-.fgrp input:focus,.fgrp select:focus,.fgrp textarea:focus{border-color:var(--navy-light);background:var(--white);box-shadow:0 0 0 3px rgba(26,74,138,.1);}
-.fgrp textarea{resize:vertical;min-height:80px;}
-.btn-submit{width:100%;padding:15px;border-radius:12px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:var(--white);font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:var(--ease);box-shadow:0 6px 24px rgba(11,31,58,.3);display:flex;align-items:center;justify-content:center;gap:9px;}
-.btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(11,31,58,.4);}
+/* BOOKING */
+#booking{
+  background:var(--gray-100);
+}
+
+.booking-wrap{
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:72px;
+  align-items:start;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+.bform{
+  background:var(--white);
+  border-radius:20px;
+  padding:38px;
+  box-shadow:var(--sh-md);
+  border:1px solid var(--gray-200);
+}
+
+.bform-title{
+  font-size:19px;
+  font-weight:600;
+  color:var(--navy);
+  margin-bottom:5px;
+}
+
+.bform-sub{
+  font-size:13px;
+  color:var(--gray-400);
+  margin-bottom:26px;
+}
+
+#consultForm{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+#consultForm input,
+#consultForm select,
+#consultForm textarea{
+  width:100%;
+  padding:13px 15px;
+  border-radius:10px;
+  border:1.5px solid var(--gray-200);
+  background:var(--gray-100);
+  font-family:'Outfit',sans-serif;
+  font-size:14px;
+  color:var(--gray-800);
+  transition:var(--ease);
+  outline:none;
+}
+
+#consultForm input:focus,
+#consultForm select:focus,
+#consultForm textarea:focus{
+  border-color:var(--navy-light);
+  background:var(--white);
+  box-shadow:0 0 0 3px rgba(26,74,138,.1);
+}
+
+#consultForm textarea{
+  grid-column:1 / -1;
+  resize:vertical;
+  min-height:110px;
+}
+
+#consultForm .btn-submit{
+  grid-column:1 / -1;
+  width:100%;
+  padding:15px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid));
+  color:var(--white);
+  font-family:'Outfit',sans-serif;
+  font-size:15px;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+  transition:var(--ease);
+  box-shadow:0 6px 24px rgba(11,31,58,.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+}
+
+#consultForm .btn-submit:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 32px rgba(11,31,58,.4);
+}
+
+.checklist{
+  margin-top:32px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.chk{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.chk-dot{
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  flex-shrink:0;
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  color:var(--white);
+}
+
+.chk span{
+  font-size:14px;
+  color:var(--gray-600);
+  font-weight:500;
+}
+
+@media(max-width:1024px){
+  .booking-wrap{
+    grid-template-columns:1fr;
+    gap:36px;
+  }
+}
+
+@media(max-width:768px){
+  #consultForm{
+    grid-template-columns:1fr;
+  }
+
+  #consultForm textarea,
+  #consultForm .btn-submit{
+    grid-column:auto;
+  }
+
+  .bform{
+    padding:26px;
+  }
+}
 
 /* FOOTER */
 footer{background:var(--gray-800);padding:60px 6% 28px;}
@@ -247,4 +378,9 @@ footer{background:var(--gray-800);padding:60px 6% 28px;}
   .hero-stats{gap:20px;}
   .intl-cards{grid-template-columns:1fr;}
   .intl-photo-row{grid-template-columns:1fr!important;}
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(26px);
 }
